@@ -23,6 +23,8 @@ namespace StudentExercises3_4
                 Console.WriteLine(exercise.ExerciseName, exercise.ExerciseLanguage);
             }
 
+            Pause();
+
             //call GetJavaScriptExercises from Repository.cs
             List<Exercise> JSExercises = repository.GetJSExercises();
 
@@ -31,6 +33,8 @@ namespace StudentExercises3_4
             {
                 Console.WriteLine(exercise.ExerciseName, exercise.ExerciseLanguage);
             }
+
+            Pause();
 
             //add new exercise
             Exercise BackgroundColor = new Exercise
@@ -49,6 +53,8 @@ namespace StudentExercises3_4
                 Console.WriteLine(exercise.ExerciseName, exercise.ExerciseLanguage);
             }
 
+            Pause();
+
             //call GetInstructorsWithCohort from Repository.cs
             //include each instructor's cohort
             List<Instructor> InstructorsWithCohort = repository.GetInstructorsWithCohort();
@@ -58,6 +64,8 @@ namespace StudentExercises3_4
             {
                 Console.WriteLine($"{instructor.FirstName} {instructor.LastName} is in {instructor.cohort.Name}");
             }
+
+            Pause();
 
             //add new instructor and assign to existing cohort
             Instructor Obama = new Instructor
@@ -75,6 +83,8 @@ namespace StudentExercises3_4
                 Console.WriteLine($"{instructor.FirstName} {instructor.LastName} is in {instructor.cohort.Name}"); 
             }
 
+            Pause();
+
             //assign existing exercise to existing student
             //(studentId, exerciseId)
             repository.AddStudentExercise(5, 3);
@@ -86,6 +96,17 @@ namespace StudentExercises3_4
             {
                 Console.WriteLine($"{stuEx.Student.FirstName} {stuEx.Student.LastName} is working on {stuEx.Exercise.ExerciseName}");
             }
+
+            Pause();
+
         }
+            public static void Pause()
+            {
+                Console.WriteLine();
+                Console.Write("Press any key to continue :~)");
+                Console.ReadKey();
+                Console.WriteLine();
+                Console.WriteLine();
+            }
     }
 }

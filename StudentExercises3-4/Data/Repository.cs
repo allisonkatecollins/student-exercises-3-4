@@ -50,10 +50,10 @@ namespace StudentExercises3_4.Data
                         //we use the reader's GetXXX methods to get the value for a particular ordinal
                         int idValue = reader.GetInt32(idColumnPosition);
 
-                        int ExerciseNamePosition = reader.GetOrdinal("Name");
+                        int ExerciseNamePosition = reader.GetOrdinal("ExerciseName");
                         string ExerciseValue = reader.GetString(ExerciseNamePosition);
 
-                        int LanguagePosition = reader.GetOrdinal("Language");
+                        int LanguagePosition = reader.GetOrdinal("ExerciseLanguage");
                         string LanguageValue = reader.GetString(LanguagePosition);
 
                         //create a new exercise object using the data from the database
@@ -89,10 +89,10 @@ namespace StudentExercises3_4.Data
                         int IdPosition = reader.GetOrdinal("Id");
                         int IdValue = reader.GetInt32(IdPosition);
 
-                        int ExerciseNamePosition = reader.GetOrdinal("Name");
+                        int ExerciseNamePosition = reader.GetOrdinal("ExerciseName");
                         string ExerciseValue = reader.GetString(ExerciseNamePosition);
 
-                        int LanguagePosition = reader.GetOrdinal("Language");
+                        int LanguagePosition = reader.GetOrdinal("ExerciseLanguage");
                         string LanguageValue = reader.GetString(LanguagePosition);
 
                         //create new instance
@@ -139,7 +139,7 @@ namespace StudentExercises3_4.Data
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                         cmd.CommandText = 
-                            @"SELECT Instructor.Id, Instructor.FirstName, Instructor.LastName, Cohort.Id as CohortId, 
+                            @"SELECT Instructor.Id, Instructor.FirstName, Instructor.LastName, Instructor.SlackHandle, Cohort.Id as CohortId, 
                             Cohort.CohortName as CohortName FROM Instructor
                             LEFT JOIN Cohort ON Instructor.CohortId = Cohort.Id";
                         SqlDataReader reader = cmd.ExecuteReader();
@@ -154,6 +154,9 @@ namespace StudentExercises3_4.Data
 
                             int InstructorLastNamePosition = reader.GetOrdinal("LastName");
                             string InstructorLastNameValue = reader.GetString(InstructorLastNamePosition);
+
+                            int SlackHandlePosition = reader.GetOrdinal("SlackHandle");
+                            string SlackValue = reader.GetString(SlackHandlePosition);
 
                             int CohortIdPosition = reader.GetOrdinal("CohortId");
                             int CohortIdValue = reader.GetInt32(CohortIdPosition);
@@ -229,7 +232,7 @@ namespace StudentExercises3_4.Data
                 {
                     cmd.CommandText = 
                         @"SELECT se.Id as StudentExerciseId, StudentId, ExerciseId, s.FirstName, s.LastName, 
-                        s.SlackHandle, s.CohortId, e.Name as ExerciseName, e.Language FROM StudentExercise as se 
+                        s.SlackHandle, s.CohortId, e.ExerciseName as ExerciseName, e.ExerciseLanguage FROM StudentExercise as se 
                         LEFT JOIN Student as s ON se.StudentId = s.Id 
                         JOIN Exercise as e  ON se.ExerciseId = e.Id;";
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -261,7 +264,7 @@ namespace StudentExercises3_4.Data
                         int ExerciseNamePosition = reader.GetOrdinal("ExerciseName");
                         string ExerciseNameValue = reader.GetString(ExerciseNamePosition);
 
-                        int ExerciseLanguagePosition = reader.GetOrdinal("Language");
+                        int ExerciseLanguagePosition = reader.GetOrdinal("ExerciseLanguage");
                         string ExerciseLanguageValue = reader.GetString(ExerciseLanguagePosition);
 
                         Exercise exercise = new Exercise
