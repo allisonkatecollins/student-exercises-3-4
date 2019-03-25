@@ -14,7 +14,7 @@ namespace StudentExercises3_4.Data
         {
             get
             {
-                string _connectionString = "Server=ALLISONCOLLINS-\\SQLEXPRESS; Database=StudentExercises3; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False";
+                string _connectionString = "Server=ALLISONCOLLINS-\\SQLEXPRESS;Database=StudentExercises3;Trusted_Connection=True;";
                 return new SqlConnection(_connectionString);
             }
         }
@@ -273,9 +273,26 @@ namespace StudentExercises3_4.Data
 
                         Student student = new Student
                         {
+                            Id = StudentIdValue,
+                            FirstName = StudentFirstNameValue,
+                            LastName = StudentLastNameValue,
+                            SlackHandle = SlackHandleValue,
+                            CohortId = CohortIdValue
+                        };
 
-                        }
+                        StudentExercise studentExercise = new StudentExercise
+                        {
+                            Id = StudentExerciseIdValue,
+                            StudentId = StudentIdValue,
+                            Student = student,
+                            ExerciseId = ExerciseIdValue,
+                            Exercise = exercise
+                        };
+
+                        StudentExercises.Add(studentExercise);
                     }
+                    reader.Close();
+                    return StudentExercises;
                 }
             }
         }

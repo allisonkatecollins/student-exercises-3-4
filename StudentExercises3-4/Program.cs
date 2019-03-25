@@ -23,9 +23,14 @@ namespace StudentExercises3_4
                 Console.WriteLine(exercise.ExerciseName, exercise.ExerciseLanguage);
             }
 
-            Pause();
-
             //call GetJavaScriptExercises from Repository.cs
+            List<Exercise> JSExercises = repository.GetJSExercises();
+
+            Console.WriteLine("All JavaScript exercises:");
+            foreach(Exercise exercise in JSExercises)
+            {
+                Console.WriteLine(exercise.ExerciseName, exercise.ExerciseLanguage);
+            }
 
             //add new exercise
             Exercise BackgroundColor = new Exercise
@@ -42,9 +47,7 @@ namespace StudentExercises3_4
             foreach (Exercise exercise in exercises)
             {
                 Console.WriteLine(exercise.ExerciseName, exercise.ExerciseLanguage);
-            };
-
-            Pause();
+            }
 
             //call GetInstructorsWithCohort from Repository.cs
             //include each instructor's cohort
@@ -54,15 +57,14 @@ namespace StudentExercises3_4
             foreach (Instructor instructor in InstructorsWithCohort)
             {
                 Console.WriteLine($"{instructor.FirstName} {instructor.LastName} is in {instructor.cohort.Name}");
-            };
+            }
 
-            Pause();
             //add new instructor and assign to existing cohort
             Instructor Obama = new Instructor
             {
                 FirstName = "Barack",
                 LastName = "Obama",
-                SlackHandle = "POTUS",
+                SlackHandle = "@POTUS",
                 CohortId = 1
             };
 
@@ -70,19 +72,20 @@ namespace StudentExercises3_4
             repository.GetInstructorsWithCohort();
             foreach (Instructor instructor in InstructorsWithCohort)
             {
-                Console.WriteLine($"{instructor.FirstName} {instructor.LastName} is in {instructor.cohort.Name}"); }
+                Console.WriteLine($"{instructor.FirstName} {instructor.LastName} is in {instructor.cohort.Name}"); 
             }
 
-            Pause();
             //assign existing exercise to existing student
+            //(studentId, exerciseId)
+            repository.AddStudentExercise(5, 3);
 
-        public static void Pause()
-        {
-            Console.WriteLine();
-            Console.Write("Press any key...");
-            Console.ReadKey();
-            Console.WriteLine();
-            Console.WriteLine();
+            List<StudentExercise> AllStudentExercises = repository.GetStudentExercises();
+
+            Console.WriteLine("Updated Student Exercises:");
+            foreach (StudentExercise stuEx in AllStudentExercises)
+            {
+                Console.WriteLine($"{stuEx.Student.FirstName} {stuEx.Student.LastName} is working on {stuEx.Exercise.ExerciseName}");
+            }
         }
     }
 }
